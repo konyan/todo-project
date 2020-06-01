@@ -5,10 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TODO PROJECT</title>
     <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"
+    />
   </head>
   <body>
-    <h1>Hello World</h1>
+    <div class="page-content page-container" id="page-content">
+      <div class="padding">
+        <div class="row container d-flex justify-content-center">
+          <div class="col-lg-12">
+            <div class="card px-3">
+              <div class="card-body">
+                <h4 class="card-title">Awesome Todo list</h4>
+                <form class="add-items d-flex" id="addTodos">
+                  <input
+                    type="text"
+                    class="form-control todo-list-input"
+                    id="title"
+                    placeholder="Add title"
+                  />
+                  <input
+                    type="text"
+                    class="form-control todo-list-input"
+                    placeholder="Add description"
+                    id="description"
+                  />
+                  <input
+                    type="date"
+                    class="form-control todo-list-input"
+                    placeholder="dueDate"
+                    id="dueDate"
+                  />
+                  <input type="hidden" id="id" value="" />
+                  <!-- <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Choose priority
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a class="dropdown-item" id="low" href="#">low</a>
+                      <a class="dropdown-item" id="medium" href="#">medium</a>
+                      <a class="dropdown-item" id="high" href="#">high</a>
+                    </div>
+                  </div> -->
+                  <input type="submit" value="Submit" class="u-full-width" />
+                </form>
+                <div class="list-wrapper">
+                  <ul
+                    class="d-flex flex-column-reverse todo-list"
+                    id="todos"
+                  ></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="js/bundle.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
