@@ -15,8 +15,8 @@ class Project {
                           </label>
                         </div>
                         <div class="project-actions">
-                          <i class="edit-project fa fa-pencil"></i>
-                          <i class="remove-project fa fa-trash-o"></i>
+                          <i class="edit-project fa fa-pencil" data-id=${project.id}></i>
+                          <i class="remove-project fa fa-trash-o" data-id=${project.id}></i>
                         </div>
                       </li>
       `;
