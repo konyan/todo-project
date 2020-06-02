@@ -1,10 +1,12 @@
 import data from "./data";
 import { project } from "./project";
+import { todo } from "./todo";
 import showAlert from "./alert";
 
 const getDefault = () => {
   console.log("DAta", data);
   project.showProjectsList(data);
+  todo.renderProjectDropDown(data);
 };
 
 const addNewProject = () => {
