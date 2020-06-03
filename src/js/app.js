@@ -9,9 +9,11 @@ const getDefault = () => {
   todo.renderProjectDropDown(data);
 };
 
-const addNewProject = () => {
-  console.log("NEW PROJECT");
-  showAlert("Please fill in all fields", "alert alert-danger");
+const addNewProject = (e) => {
+  const name = document.getElementById("name").value;
+  data.push({ name });
+  project.showProjectsList(data);
+  e.preventDefault();
 };
 
 const editProject = (e) => {
@@ -27,6 +29,7 @@ const editProject = (e) => {
 const deleteProject = (e) => {
   if (e.target.classList.contains("remove-project")) {
     const id = e.target.dataset.id;
+
     //DELETE PROJECT
     console.log("DELTE PROJECT", id);
     showAlert("Please fill in all fields", "alert alert-danger");

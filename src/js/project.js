@@ -26,4 +26,4 @@ class Project {
   }
 }
 
-export const project = new Project();
+export const project = new Project(name);
