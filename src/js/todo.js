@@ -1,23 +1,24 @@
-import Project, { project } from "./project";
+import Project, { project } from './project';
 
 class Todo {
   constructor() {
-    this.title = document.querySelector("#title");
-    this.description = document.querySelector("#description");
-    this.dueDate = document.querySelector("#dueDate");
-    this.priority = document.querySelector("#priority");
+    this.title = document.querySelector('#title');
+    this.description = document.querySelector('#description');
+    this.dueDate = document.querySelector('#dueDate');
+    this.priority = document.querySelector('#priority');
+    this.project = document.querySelector('#project');
     this.status = false;
-    this.idInput = document.querySelector("#id");
-    this.projectsDropDown = document.querySelector(".dropdown-select");
-    this.todos = document.querySelector(".todos");
+    this.idInput = document.querySelector('#id');
+    this.projectsDropDown = document.querySelector('.project-select');
+    this.todos = document.querySelector('.todos');
   }
 
   renderProjectDropDown(projects) {
-    console.log("PRO", projects);
-    let output = "";
-    projects.map((project) => {
+    console.log('PRO', projects);
+    let output = '';
+    projects.map((project, index) => {
       output += `
-        <option value=${project.id}>${project.name}</option>
+        <option value=${index}>${project.name}</option>
       `;
     });
 
@@ -27,12 +28,12 @@ class Todo {
   }
 
   showTodo(projects) {
-    let output = "";
-    projects.map((project) => {
+    let output = '';
+    projects.map((project, project_index) => {
       if (project.todos.length) {
-        project.todos.map((todo) => {
+        project.todos.map((todo, todo_index) => {
           output += `
-                <li class="list-group-item">
+                <li class="list-group-item" data-id=${project_index}>
                   <div class="todo-indicator bg-warning"></div>
                     <div class="widget-content p-0">
                       <div class="widget-content-wrapper">
@@ -65,9 +66,9 @@ class Todo {
                                 </div>
                               </div>
                             </div>
-                            <div class="widget-content-right">
-                              <i class="fa fa-pencil"></i>
-                              <i class="fa fa-trash-o"></i>
+                            <div class="widget-content-right" id="todo-action">
+                              <i class="fa fa-pencil" data-id=${todo_index}></i>
+                              <i class="fa fa-trash-o" data-id=${todo_index}></i>
                             </div>
                           </div>
                         </div>
@@ -77,6 +78,12 @@ class Todo {
       }
     });
     this.todos.innerHTML = output;
+  }
+
+  clearFields() {
+    this.title.value = '';
+    this.description.value = '';
+    this.dueDate.value = '';
   }
 }
 
