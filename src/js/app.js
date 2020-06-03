@@ -4,7 +4,6 @@ import { todo } from "./todo";
 import showAlert from "./alert";
 
 const getDefault = () => {
-  console.log("DAta", data);
   project.showProjectsList(data);
   todo.renderProjectDropDown(data);
 };
@@ -13,9 +12,9 @@ const addNewProject = (e) => {
   const name = document.getElementById("name").value;
 
   data.push({ name });
-  project.showProjectsList(data);
   project.clearFields();
   console.log(data);
+  getDefault();
   e.preventDefault();
 };
 
@@ -35,18 +34,15 @@ const editProject = (e) => {
 };
 
 const deleteProject = (e) => {
-  if (e.target.classList.contains("remove-project")) {
-    const id = e.target.parentElement.dataset.id;
-
+  if (e.target.parentElement.classList.contains("remove-project")) {
+    const index = e.target.parentElement.dataset.id;
     if (confirm("Are you sure?")) {
-      const index = data.indexOf({ id });
-      if (index > -1) {
-        data.splice({ id }, -1);
-        project.showProjectsList(data);
-      }
+      data.splice(index, 1);
+      project.showProjectsList(data);
+      showAlert("Deleted", "alert alert-danger");
     }
-    showAlert("Deleted", "alert alert-danger");
   }
+  console.log(e.target.parentElement);
   e.preventDefault();
 };
 

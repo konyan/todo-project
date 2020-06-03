@@ -1,29 +1,34 @@
 class Project {
   constructor() {
-    this.idInput = document.querySelector("#id");
     this.nameInput = document.querySelector("#name");
-    this.projects = document.querySelector("#projects");
+    this.addProject = document.querySelector(".add-project");
+    this.project = document.querySelector("#projects");
+    this.forState = "add";
   }
 
   showProjectsList(projects) {
     let output = "";
-    projects.map((project) => {
+    projects.forEach((project, index) => {
       output += `
-      <li id="${project.id}" class="project">
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            ${project.name}
-                          </label>
-                        </div>
-                        <div class="project-actions">
-                          <i class="edit-project fa fa-pencil" data-id=${project.id}></i>
-                          <i class="remove-project fa fa-trash-o" data-id=${project.id}></i>
-                        </div>
-                      </li>
+      <li class="project">
+          <div class="form-check">
+            <label class="form-check-label">
+              ${project.name}
+            </label>
+          </div>
+          <div class="project-actions">
+          <a class="edit-project" data-id="${index}">
+            <i class="fa fa-pencil"></i>
+            </a>
+            <a class="remove-project" data-id="${index}">
+            <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
       `;
     });
 
-    this.projects.innerHTML = output;
+    this.project.innerHTML = output;
   }
 
   clearFields() {
@@ -32,7 +37,6 @@ class Project {
 
   fillForm(data) {
     this.nameInput.value = data.name;
-    this.idInput.value = data.id;
   }
 }
 
