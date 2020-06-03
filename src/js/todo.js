@@ -14,7 +14,6 @@ class Todo {
   }
 
   renderProjectDropDown(projects) {
-    console.log('PRO', projects);
     let output = '';
     projects.map((project, index) => {
       output += `
@@ -66,9 +65,9 @@ class Todo {
                                 </div>
                               </div>
                             </div>
-                            <div class="widget-content-right" id="todo-action">
-                              <i class="fa fa-pencil" data-id=${todo_index}></i>
-                              <i class="fa fa-trash-o" data-id=${todo_index}></i>
+                            <div class="widget-content-right" id="todo-action"  data-id=${todo_index}>
+                              <i class="fa fa-pencil edit-todo"></i>
+                              <i class="fa fa-trash-o delete-todo"></i>
                             </div>
                           </div>
                         </div>

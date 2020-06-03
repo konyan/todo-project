@@ -82,12 +82,26 @@ const addNewTodo = (e) => {
 
 const editTodo = (e) => {
   e.preventDefault();
-  console.log('EDIT TO DO', e.target);
+  if (e.target.classList.contains('edit-todo')) {
+    console.log('EDIT TO DO');
+  }
 };
 
 const deleteTodo = (e) => {
   e.preventDefault();
-  console.log('DELETE', e.target);
+  if (e.target.classList.contains('delete-todo')) {
+    const todo_index = e.target.parentElement.dataset.id;
+    const project_index =
+      e.target.parentElement.parentElement.parentElement.parentElement.dataset
+        .id;
+
+    if (confirm('Are you sure?')) {
+      data[project_index].todos.splice(todo_index, 1);
+      showAlert('Deleted', 'alert alert-danger');
+      todo.showTodo(data);
+    }
+    console.log('DELETE TO DO', todo_index, project_index, data);
+  }
 };
 
 //DEFAULT CONTENT LOAD
@@ -100,6 +114,11 @@ document.querySelector('.add-project').addEventListener('click', addNewProject);
 document.querySelector('#projects').addEventListener('click', editProject);
 //DELETE PROJECT
 document.querySelector('#projects').addEventListener('click', deleteProject);
+
 //TODO PARTS
 //ADD NEW TODO
 document.querySelector('#addTodo').addEventListener('submit', addNewTodo);
+//EDIT TODO
+document.querySelector('#todos').addEventListener('click', editTodo);
+//DELETE TODO
+document.querySelector('#todos').addEventListener('click', deleteTodo);
