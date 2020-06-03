@@ -55,6 +55,7 @@ const addNewTodo = (e) => {
   const priority = document.querySelector('#priority').value;
   const project_index = document.querySelector('#project').value;
   const status = false;
+  const todo_index = document.querySelector('#todoId').value;
 
   const body = {
     title,
@@ -68,13 +69,18 @@ const addNewTodo = (e) => {
   if (title === '' || description === '' || dueDate === '' || priority === '') {
     showAlert('Please fill in all fields', 'alert alert-danger');
   } else {
-    console.log(data[project_index].hasOwnProperty('todos'));
-    if (!data[project_index].hasOwnProperty('todos')) {
-      data[project_index]['todos'] = [body];
+    if (!todo_index) {
+      if (!data[project_index].hasOwnProperty('todos')) {
+        data[project_index]['todos'] = [body];
+      } else {
+        data[project_index]['todos'].push(body);
+      }
+      showAlert('Post Added', 'alert alert-success');
     } else {
-      data[project_index]['todos'].push(body);
+      data[project_index]['todos'][todo_index] = body;
+      showAlert('Post Updated', 'alert alert-success');
+      todo.changeToDoFormState('add');
     }
-    showAlert('Post Added', 'alert alert-success');
     todo.clearFields();
     todo.showTodo(data);
   }
@@ -83,7 +89,26 @@ const addNewTodo = (e) => {
 const editTodo = (e) => {
   e.preventDefault();
   if (e.target.classList.contains('edit-todo')) {
-    console.log('EDIT TO DO');
+    const todo_index = e.target.parentElement.dataset.id;
+    const project_index =
+      e.target.parentElement.parentElement.parentElement.parentElement.dataset
+        .id;
+    const title = e.target.parentElement.previousElementSibling.childNodes[1].childNodes[0].nodeValue.trim();
+    const dueDate = e.target.parentElement.previousElementSibling.children[0].firstElementChild.innerText.trim();
+    const description = e.target.parentElement.previousElementSibling.childNodes[3].childNodes[1].childNodes[0].nodeValue.trim();
+    const priority = e.target.parentElement.previousElementSibling.childNodes[3].childNodes[1].childNodes[1].textContent.trim();
+
+    const body = {
+      project_index,
+      todo_index,
+      title,
+      description,
+      dueDate,
+      priority,
+    };
+    console.log('EDIT TO DO', body);
+
+    todo.fillForm(body);
   }
 };
 
