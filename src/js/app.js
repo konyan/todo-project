@@ -68,7 +68,12 @@ const addNewTodo = (e) => {
   if (title === '' || description === '' || dueDate === '' || priority === '') {
     showAlert('Please fill in all fields', 'alert alert-danger');
   } else {
-    data[project_index]['todos'].push(body);
+    console.log(data[project_index].hasOwnProperty('todos'));
+    if (!data[project_index].hasOwnProperty('todos')) {
+      data[project_index]['todos'] = [body];
+    } else {
+      data[project_index]['todos'].push(body);
+    }
     showAlert('Post Added', 'alert alert-success');
     todo.clearFields();
     todo.showTodo(data);
