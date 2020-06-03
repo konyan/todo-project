@@ -30,7 +30,7 @@ class Todo {
   showTodo(projects) {
     let output = '';
     projects.map((project, project_index) => {
-      if (project.todos.length) {
+      if (project.todos) {
         project.todos.map((todo, todo_index) => {
           output += `
                 <li class="list-group-item" data-id=${project_index}>
