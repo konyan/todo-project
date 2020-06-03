@@ -55,7 +55,7 @@
               </section>
               <section>
                 <h4 class="card-title">Awesome Todo list</h4>
-                <form class="add-items d-flex" id="addTodos">
+                <form class="add-items d-flex" id="addTodo">
                   <input
                     type="text"
                     class="form-control todo-list-input"
@@ -76,13 +76,9 @@
                   />
                   <input type="hidden" id="id" value="" />
 
-                  <select class="custom-select dropdown-select">
-                    <option selected>Select Priority</option>
-                    <option value="1">Low</option>
-                    <option value="2">Medium</option>
-                    <option value="3">High</option>
+                  <select class="custom-select project-select" id="project">
                   </select>
-                  <select class="custom-select">
+                  <select class="custom-select" id="priority">
                     <option value="1">Low</option>
                     <option value="2">Medium</option>
                     <option value="3">High</option>
