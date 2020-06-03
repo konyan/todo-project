@@ -26,11 +26,9 @@ export default [
     ],
   },
   {
-    id: 2,
     name: 'Work Schedule',
     todos: [
       {
-        id: 1,
         title: 'Wake Up',
         description: 'Wake Up Morning',
         dueDate: '20/01/2020',
