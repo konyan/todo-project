@@ -1,7 +1,7 @@
-import data from './data';
-import { project } from './project';
-import { todo } from './todo';
-import showAlert from './alert';
+import data from "./data";
+import { project } from "./project";
+import { todo } from "./todo";
+import showAlert from "./alert";
 
 const getDefault = () => {
   project.showProjectsList(data);
@@ -9,23 +9,33 @@ const getDefault = () => {
 };
 
 const addNewProject = (e) => {
-  const name = document.getElementById('name').value;
+  const name = document.getElementById("name").value;
+  const id = document.querySelector("#id").value;
 
-  data.push({ name });
-  project.clearFields();
-  console.log(data);
-  getDefault();
+  // Validate input
+  if (name === "") {
+    showAlert("Please fill in all fields", "alert alert-danger");
+  } else {
+    if (id === "") {
+      data.push({ name });
+      project.clearFields();
+      getDefault();
+    } else {
+      data[id].name = name;
+      showAlert("Post updated", "alert alert-success");
+      project.changeFormState("add");
+      getDefault();
+    }
+  }
   e.preventDefault();
 };
 
 const editProject = (e) => {
-  if (e.target.parentElement.classList.contains('edit-project')) {
-    const id = e.target.dataset.id;
-    const name =
-      e.target.previousElementSibling.previousElementSibling.textContent;
-
+  if (e.target.parentElement.classList.contains("edit-project")) {
+    const index = e.target.parentElement.dataset.id;
+    const name = e.target.parentElement.parentElement.previousElementSibling.childNodes[1].textContent.trim();
     const data = {
-      id,
+      index,
       name,
     };
     project.fillForm(data);
@@ -34,26 +44,34 @@ const editProject = (e) => {
 };
 
 const deleteProject = (e) => {
-  if (e.target.parentElement.classList.contains('remove-project')) {
+  if (e.target.parentElement.classList.contains("remove-project")) {
     const index = e.target.parentElement.dataset.id;
-    if (confirm('Are you sure?')) {
+    if (confirm("Are you sure?")) {
       data.splice(index, 1);
       project.showProjectsList(data);
-      showAlert('Deleted', 'alert alert-danger');
+      showAlert("Deleted", "alert alert-danger");
     }
   }
   console.log(e.target.parentElement);
   e.preventDefault();
 };
 
+function cancelEdit(e) {
+  if (e.target.classList.contains("post-cancel")) {
+    project.changeFormState("add");
+  }
+
+  e.preventDefault();
+}
+
 const addNewTodo = (e) => {
   e.preventDefault();
 
-  const title = document.querySelector('#title').value;
-  const description = document.querySelector('#description').value;
-  const dueDate = document.querySelector('#dueDate').value;
-  const priority = document.querySelector('#priority').value;
-  const project_index = document.querySelector('#project').value;
+  const title = document.querySelector("#title").value;
+  const description = document.querySelector("#description").value;
+  const dueDate = document.querySelector("#dueDate").value;
+  const priority = document.querySelector("#priority").value;
+  const project_index = document.querySelector("#project").value;
   const status = false;
 
   const body = {
@@ -63,13 +81,13 @@ const addNewTodo = (e) => {
     priority,
     status,
   };
-  console.log('ADD', body, project_index);
+  console.log("ADD", body, project_index);
 
-  if (title === '' || description === '' || dueDate === '' || priority === '') {
-    showAlert('Please fill in all fields', 'alert alert-danger');
+  if (title === "" || description === "" || dueDate === "" || priority === "") {
+    showAlert("Please fill in all fields", "alert alert-danger");
   } else {
-    data[project_index]['todos'].push(body);
-    showAlert('Post Added', 'alert alert-success');
+    data[project_index]["todos"].push(body);
+    showAlert("Post Added", "alert alert-success");
     todo.clearFields();
     todo.showTodo(data);
   }
@@ -77,24 +95,26 @@ const addNewTodo = (e) => {
 
 const editTodo = (e) => {
   e.preventDefault();
-  console.log('EDIT TO DO', e.target);
+  console.log("EDIT TO DO", e.target);
 };
 
 const deleteTodo = (e) => {
   e.preventDefault();
-  console.log('DELETE', e.target);
+  console.log("DELETE", e.target);
 };
 
 //DEFAULT CONTENT LOAD
-document.addEventListener('DOMContentLoaded', getDefault);
+document.addEventListener("DOMContentLoaded", getDefault);
 
 //PROJECT PARTs
 //ADD NEW PROJECT
-document.querySelector('.add-project').addEventListener('click', addNewProject);
+document.querySelector(".add-project").addEventListener("click", addNewProject);
 //EDIT PROJECT
-document.querySelector('#projects').addEventListener('click', editProject);
+document.querySelector("#projects").addEventListener("click", editProject);
 //DELETE PROJECT
-document.querySelector('#projects').addEventListener('click', deleteProject);
+document.querySelector("#projects").addEventListener("click", deleteProject);
 //TODO PARTS
 //ADD NEW TODO
-document.querySelector('#addTodo').addEventListener('submit', addNewTodo);
+document.querySelector("#addTodo").addEventListener("submit", addNewTodo);
+
+document.querySelector(".add-project").addEventListener("click", cancelEdit);
