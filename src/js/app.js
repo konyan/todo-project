@@ -11,28 +11,41 @@ const getDefault = () => {
 
 const addNewProject = (e) => {
   const name = document.getElementById("name").value;
+
   data.push({ name });
   project.showProjectsList(data);
+  project.clearFields();
+  console.log(data);
   e.preventDefault();
 };
 
 const editProject = (e) => {
-  if (e.target.classList.contains("edit-project")) {
+  if (e.target.parentElement.classList.contains("edit-project")) {
     const id = e.target.dataset.id;
-    //EDIT PROJECT
-    console.log("EDIT PROJECT", id);
-    showAlert("Please fill in all fields", "alert alert-danger");
+    const name =
+      e.target.previousElementSibling.previousElementSibling.textContent;
+
+    const data = {
+      id,
+      name,
+    };
+    project.fillForm(data);
   }
   e.preventDefault();
 };
 
 const deleteProject = (e) => {
   if (e.target.classList.contains("remove-project")) {
-    const id = e.target.dataset.id;
+    const id = e.target.parentElement.dataset.id;
 
-    //DELETE PROJECT
-    console.log("DELTE PROJECT", id);
-    showAlert("Please fill in all fields", "alert alert-danger");
+    if (confirm("Are you sure?")) {
+      const index = data.indexOf({ id });
+      if (index > -1) {
+        data.splice({ id }, -1);
+        project.showProjectsList(data);
+      }
+    }
+    showAlert("Deleted", "alert alert-danger");
   }
   e.preventDefault();
 };

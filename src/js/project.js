@@ -1,6 +1,7 @@
 class Project {
   constructor() {
-    this.name = document.querySelector("#name");
+    this.idInput = document.querySelector("#id");
+    this.nameInput = document.querySelector("#name");
     this.projects = document.querySelector("#projects");
   }
 
@@ -8,7 +9,7 @@ class Project {
     let output = "";
     projects.map((project) => {
       output += `
-<li id="${project.id}" class="project">
+      <li id="${project.id}" class="project">
                         <div class="form-check">
                           <label class="form-check-label">
                             ${project.name}
@@ -24,6 +25,15 @@ class Project {
 
     this.projects.innerHTML = output;
   }
+
+  clearFields() {
+    this.nameInput.value = "";
+  }
+
+  fillForm(data) {
+    this.nameInput.value = data.name;
+    this.idInput.value = data.id;
+  }
 }
 
-export const project = new Project(name);
+export const project = new Project();
