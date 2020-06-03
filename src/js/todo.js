@@ -8,13 +8,13 @@ class Todo {
     this.priority = document.querySelector('#priority');
     this.project = document.querySelector('#project');
     this.status = false;
-    this.idInput = document.querySelector('#id');
+    this.idInput = document.querySelector('#todoId');
     this.projectsDropDown = document.querySelector('.project-select');
     this.todos = document.querySelector('.todos');
+    this.todoSubmit = document.querySelector('.add-todo');
   }
 
   renderProjectDropDown(projects) {
-    console.log('PRO', projects);
     let output = '';
     projects.map((project, index) => {
       output += `
@@ -53,7 +53,7 @@ class Todo {
                             <div class="widget-content-left">
                               <div class="widget-heading">
                                 ${todo.title}
-                                <div class="badge badge-success ml-2">
+                               <div class="badge badge-success ml-2">
                                   ${todo.dueDate}
                                 </div>
                               </div>
@@ -66,9 +66,9 @@ class Todo {
                                 </div>
                               </div>
                             </div>
-                            <div class="widget-content-right" id="todo-action">
-                              <i class="fa fa-pencil" data-id=${todo_index}></i>
-                              <i class="fa fa-trash-o" data-id=${todo_index}></i>
+                            <div class="widget-content-right" id="todo-action"  data-id=${todo_index}>
+                              <i class="fa fa-pencil edit-todo"></i>
+                              <i class="fa fa-trash-o delete-todo"></i>
                             </div>
                           </div>
                         </div>
@@ -84,6 +84,34 @@ class Todo {
     this.title.value = '';
     this.description.value = '';
     this.dueDate.value = '';
+  }
+
+  fillForm(data) {
+    this.title.value = data.title;
+    this.description.value = data.description;
+    this.dueDate.value = data.dueDate;
+    this.priority.value = data.priority;
+    this.projectsDropDown.value = data.project_index;
+    this.projectsDropDown.disabled = true;
+    this.idInput.value = data.todo_index;
+
+    this.changeToDoFormState('edit');
+  }
+
+  changeToDoFormState(type) {
+    if (type === 'edit') {
+      this.todoSubmit.textContent = 'Update';
+      this.todoSubmit.className = 'add-todo u-full-width btn btn-warning';
+    } else {
+      this.todoSubmit.textContent = 'Add';
+      this.todoSubmit.className = 'add-todo u-full-width btn btn-primary';
+      this.clearIdInput();
+    }
+  }
+
+  clearIdInput() {
+    this.idInput.value = '';
+    this.clearFields();
   }
 }
 
