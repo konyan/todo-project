@@ -1,6 +1,6 @@
 <p align="center">
  <a href="https://github.com/konyan/todo-project">
-    <img src="" alt="Logo" width="680" height="auto">
+    <img src="./dist/img/todo.png" alt="Logo" width="680" height="auto">
   </a>
   <h3 align="center">TODO  Project</h3>
 
@@ -8,7 +8,7 @@
     Simple TODO project for project management
     <br />
     <br />
-    <a href="https://hungry-payne-9abdca.netlify.app/">View Demo</a>
+    <a href="https://konyan.github.io/todo-project/index.html">View Demo</a>
   </p>
 </p>
 
