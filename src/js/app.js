@@ -5,29 +5,44 @@ import showAlert from './alert';
 
 const getDefault = () => {
   initDB();
+  console.log(getStoreData());
   project.showProjectsList(getStoreData());
   todo.renderProjectDropDown(getStoreData());
 };
 
 const addNewProject = (e) => {
-  const name = document.getElementById('name').value;
+  const name = document.querySelector('#name').value;
+  const project_index = document.querySelector('#project-index').value;
+  console.log('HE:', name);
 
-  const data = getStoreData();
-  data.push({ name });
-  storeData(data);
-  project.clearFields();
-  getDefault();
+  // Validate input
+  if (name === '') {
+    showAlert('Please fill in all fields', 'alert alert-danger');
+  } else {
+    if (project_index === '') {
+      const data = getStoreData();
+      data.push({ name });
+      storeData(data);
+      project.clearFields();
+      getDefault();
+    } else {
+      const data = getStoreData();
+      data[project_index].name = name;
+      storeData(data);
+      showAlert('Post updated', 'alert alert-success');
+      project.changeFormState('add');
+      getDefault();
+    }
+  }
   e.preventDefault();
 };
 
 const editProject = (e) => {
   if (e.target.parentElement.classList.contains('edit-project')) {
-    const id = e.target.dataset.id;
-    const name =
-      e.target.previousElementSibling.previousElementSibling.textContent;
-
+    const index = e.target.parentElement.dataset.id;
+    const name = e.target.parentElement.parentElement.previousElementSibling.childNodes[1].textContent.trim();
     const data = {
-      id,
+      index,
       name,
     };
     project.fillForm(data);
@@ -39,12 +54,20 @@ const deleteProject = (e) => {
   if (e.target.parentElement.classList.contains('remove-project')) {
     const index = e.target.parentElement.dataset.id;
     if (confirm('Are you sure?')) {
-      getStoreData().splice(index, 1);
-      project.showProjectsList(getStoreData());
+      const data = getStoreData();
+      data.splice(index, 1);
+      storeData(data);
+      project.showProjectsList(data);
       showAlert('Deleted', 'alert alert-danger');
     }
   }
-  console.log(e.target.parentElement);
+  e.preventDefault();
+};
+
+const cancelEdit = (e) => {
+  if (e.target.classList.contains('post-cancel')) {
+    project.changeFormState('add');
+  }
   e.preventDefault();
 };
 
@@ -72,14 +95,14 @@ const addNewTodo = (e) => {
     showAlert('Please fill in all fields', 'alert alert-danger');
   } else {
     if (!todo_index) {
-      if (!getStoreData()[project_index].hasOwnProperty('todos')) {
-        getStoreData()[project_index]['todos'] = [body];
+      if (!data[project_index].hasOwnProperty('todos')) {
+        data[project_index]['todos'] = [body];
       } else {
-        getStoreData()[project_index]['todos'].push(body);
+        data[project_index]['todos'].push(body);
       }
       showAlert('Post Added', 'alert alert-success');
     } else {
-      getStoreData()[project_index]['todos'][todo_index] = body;
+      data[project_index]['todos'][todo_index] = body;
       showAlert('Post Updated', 'alert alert-success');
       todo.changeToDoFormState('add');
     }
@@ -123,10 +146,11 @@ const deleteTodo = (e) => {
         .id;
 
     if (confirm('Are you sure?')) {
-      getStoreData()[project_index].todos.splice(todo_index, 1);
+      data[project_index].todos.splice(todo_index, 1);
       showAlert('Deleted', 'alert alert-danger');
-      todo.showTodo(getStoreData());
+      todo.showTodo(data);
     }
+    console.log('DELETE TO DO', todo_index, project_index, data);
   }
 };
 
@@ -140,6 +164,8 @@ document.querySelector('.add-project').addEventListener('click', addNewProject);
 document.querySelector('#projects').addEventListener('click', editProject);
 //DELETE PROJECT
 document.querySelector('#projects').addEventListener('click', deleteProject);
+//CANCEL PROJECT
+document.querySelector('.add-items').addEventListener('click', cancelEdit);
 
 //TODO PARTS
 //ADD NEW TODO
