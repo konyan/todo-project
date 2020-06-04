@@ -19,20 +19,18 @@ const addNewProject = (e) => {
   if (name === '') {
     showAlert('Please fill in all fields', 'alert alert-danger');
   } else {
+    const data = getStoreData();
     if (project_index === '') {
-      const data = getStoreData();
       data.push({ name });
-      storeData(data);
       project.clearFields();
       getDefault();
     } else {
-      const data = getStoreData();
       data[project_index].name = name;
-      storeData(data);
       showAlert('Post updated', 'alert alert-success');
       project.changeFormState('add');
       getDefault();
     }
+    storeData(data);
   }
   e.preventDefault();
 };
@@ -94,6 +92,8 @@ const addNewTodo = (e) => {
   if (title === '' || description === '' || dueDate === '' || priority === '') {
     showAlert('Please fill in all fields', 'alert alert-danger');
   } else {
+    const data = getStoreData();
+
     if (!todo_index) {
       if (!data[project_index].hasOwnProperty('todos')) {
         data[project_index]['todos'] = [body];
@@ -106,6 +106,7 @@ const addNewTodo = (e) => {
       showAlert('Post Updated', 'alert alert-success');
       todo.changeToDoFormState('add');
     }
+    storeData(data);
     todo.clearFields();
     todo.showTodo(getStoreData());
   }
