@@ -1,14 +1,14 @@
 class Project {
   constructor() {
-    this.idInput = document.querySelector('#project-index');
-    this.nameInput = document.querySelector('#name');
-    this.addProject = document.querySelector('.add-project');
-    this.project = document.querySelector('#projects');
-    this.forState = 'add';
+    this.idInput = document.querySelector("#project-index");
+    this.nameInput = document.querySelector("#name");
+    this.addProject = document.querySelector(".add-project");
+    this.project = document.querySelector("#projects");
+    this.forState = "add";
   }
 
   showProjectsList(projects) {
-    let output = '';
+    let output = "";
     projects.forEach((project, index) => {
       output += `
       <li class="project">
@@ -33,41 +33,42 @@ class Project {
   }
 
   clearFields() {
-    this.nameInput.value = '';
+    this.nameInput.value = "";
   }
 
   fillForm(data) {
     this.nameInput.value = data.name;
     this.idInput.value = data.index;
 
-    this.changeFormState('edit-project');
+    this.changeFormState("edit-project");
   }
+
   // Clear ID hidden value
   clearIdInput() {
-    this.idInput.value = '';
+    this.idInput.value = "";
   }
 
   // Change the form state
   changeFormState(type) {
-    if (type === 'edit-project') {
-      this.addProject.textContent = 'Update';
-      if (document.querySelector('.post-cancel') == null) {
+    if (type === "edit-project") {
+      this.addProject.textContent = "Update";
+      if (document.querySelector(".post-cancel") == null) {
         // Create cancel button
-        const button = document.createElement('button');
-        button.className = 'post-cancel btn btn-cancel';
-        button.appendChild(document.createTextNode('Cancel'));
+        const button = document.createElement("button");
+        button.className = "post-cancel btn btn-cancel";
+        button.appendChild(document.createTextNode("Cancel"));
 
         // Get parent
-        const cardForm = document.querySelector('.add-items');
+        const cardForm = document.querySelector(".add-items");
         // Get element to insert before
-        const formEnd = document.querySelector('.form-end');
+        const formEnd = document.querySelector(".form-end");
         // Insert cancel button
         cardForm.insertBefore(button, formEnd);
       }
     } else {
-      this.addProject.textContent = 'Add';
-      if (document.querySelector('.post-cancel')) {
-        document.querySelector('.post-cancel').remove();
+      this.addProject.textContent = "Add";
+      if (document.querySelector(".post-cancel")) {
+        document.querySelector(".post-cancel").remove();
       }
       this.clearIdInput();
       // Clear text
@@ -76,4 +77,4 @@ class Project {
   }
 }
 
-export const project = new Project();
+export default new Project();
