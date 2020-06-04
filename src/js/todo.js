@@ -125,6 +125,16 @@ class Todo {
     this.idInput.value = '';
     this.clearFields();
   }
+
+  convertPriorityToNumber(priority) {
+    if (priority === 'LOW') {
+      return 1;
+    } else if (priority === 'MEDIUM') {
+      return 2;
+    } else {
+      return 3;
+    }
+  }
 }
 
 export const todo = new Todo();

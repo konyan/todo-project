@@ -122,7 +122,9 @@ const editTodo = (e) => {
     const title = e.target.parentElement.previousElementSibling.childNodes[1].childNodes[0].nodeValue.trim();
     const dueDate = e.target.parentElement.previousElementSibling.children[0].firstElementChild.innerText.trim();
     const description = e.target.parentElement.previousElementSibling.childNodes[3].childNodes[1].childNodes[0].nodeValue.trim();
-    const priority = e.target.parentElement.previousElementSibling.childNodes[3].childNodes[1].childNodes[1].textContent.trim();
+    let priority = e.target.parentElement.previousElementSibling.childNodes[3].childNodes[1].childNodes[1].textContent.trim();
+
+    priority = todo.convertPriorityToNumber(priority);
 
     const body = {
       project_index,
@@ -132,8 +134,6 @@ const editTodo = (e) => {
       dueDate,
       priority,
     };
-    console.log('EDIT TO DO', body);
-
     todo.fillForm(body);
   }
 };
@@ -147,11 +147,12 @@ const deleteTodo = (e) => {
         .id;
 
     if (confirm('Are you sure?')) {
+      const data = getStoreData();
       data[project_index].todos.splice(todo_index, 1);
+      storeData(data);
       showAlert('Deleted', 'alert alert-danger');
       todo.showTodo(data);
     }
-    console.log('DELETE TO DO', todo_index, project_index, data);
   }
 };
 
