@@ -1,4 +1,4 @@
-export default [
+const data = [
   {
     name: 'Daily Schedule',
     todos: [
@@ -14,7 +14,7 @@ export default [
         description: 'Wake Up Morning',
         dueDate: '2020-01-20',
         status: true,
-        priority: 1,
+        priority: 3,
       },
       {
         title: 'Wake Up',
@@ -38,3 +38,18 @@ export default [
     ],
   },
 ];
+
+export const initDB = () => {
+  if (!localStorage.getItem('data')) {
+    localStorage.setItem('data', JSON.stringify(data));
+  }
+};
+
+export const storeData = (data) => {
+  console.log('DATA', data);
+  localStorage.setItem('data', JSON.stringify(data));
+};
+
+export const getStoreData = () => {
+  return JSON.parse(localStorage.getItem('data'));
+};

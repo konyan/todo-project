@@ -32,6 +32,18 @@ class Todo {
     projects.map((project, project_index) => {
       if (project.todos) {
         project.todos.map((todo, todo_index) => {
+          let x = '';
+          let xColor = '';
+          if (todo.priority === 1) {
+            x = 'LOW';
+            xColor = 'badge-info';
+          } else if (todo.priority === 2) {
+            x = 'MEDIUM';
+            xColor = 'badge-primary';
+          } else {
+            x = 'HIGH';
+            xColor = 'badge-danger';
+          }
           output += `
                 <li class="list-group-item" data-id=${project_index}>
                   <div class="todo-indicator bg-warning"></div>
@@ -60,8 +72,8 @@ class Todo {
                               <div class="widget-subheading">
                                 <div>
                                   ${todo.description}
-                                  <div class="badge badge-pill badge-info ml-2">
-                                    ${todo.priority}
+                                  <div class="badge badge-pill ${xColor} ml-2">
+                                    ${x}
                                   </div>
                                 </div>
                               </div>

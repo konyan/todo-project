@@ -1,19 +1,21 @@
-import data from './data';
+import { initDB, storeData, getStoreData } from './data';
 import { project } from './project';
 import { todo } from './todo';
 import showAlert from './alert';
 
 const getDefault = () => {
-  project.showProjectsList(data);
-  todo.renderProjectDropDown(data);
+  initDB();
+  project.showProjectsList(getStoreData());
+  todo.renderProjectDropDown(getStoreData());
 };
 
 const addNewProject = (e) => {
   const name = document.getElementById('name').value;
 
+  const data = getStoreData();
   data.push({ name });
+  storeData(data);
   project.clearFields();
-  console.log(data);
   getDefault();
   e.preventDefault();
 };
@@ -37,8 +39,8 @@ const deleteProject = (e) => {
   if (e.target.parentElement.classList.contains('remove-project')) {
     const index = e.target.parentElement.dataset.id;
     if (confirm('Are you sure?')) {
-      data.splice(index, 1);
-      project.showProjectsList(data);
+      getStoreData().splice(index, 1);
+      project.showProjectsList(getStoreData());
       showAlert('Deleted', 'alert alert-danger');
     }
   }
@@ -70,19 +72,19 @@ const addNewTodo = (e) => {
     showAlert('Please fill in all fields', 'alert alert-danger');
   } else {
     if (!todo_index) {
-      if (!data[project_index].hasOwnProperty('todos')) {
-        data[project_index]['todos'] = [body];
+      if (!getStoreData()[project_index].hasOwnProperty('todos')) {
+        getStoreData()[project_index]['todos'] = [body];
       } else {
-        data[project_index]['todos'].push(body);
+        getStoreData()[project_index]['todos'].push(body);
       }
       showAlert('Post Added', 'alert alert-success');
     } else {
-      data[project_index]['todos'][todo_index] = body;
+      getStoreData()[project_index]['todos'][todo_index] = body;
       showAlert('Post Updated', 'alert alert-success');
       todo.changeToDoFormState('add');
     }
     todo.clearFields();
-    todo.showTodo(data);
+    todo.showTodo(getStoreData());
   }
 };
 
@@ -121,11 +123,10 @@ const deleteTodo = (e) => {
         .id;
 
     if (confirm('Are you sure?')) {
-      data[project_index].todos.splice(todo_index, 1);
+      getStoreData()[project_index].todos.splice(todo_index, 1);
       showAlert('Deleted', 'alert alert-danger');
-      todo.showTodo(data);
+      todo.showTodo(getStoreData());
     }
-    console.log('DELETE TO DO', todo_index, project_index, data);
   }
 };
 
