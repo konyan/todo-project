@@ -1,9 +1,10 @@
-import {
-  idInput, nameInput, addProject, project,
-} from './dom';
+const idInput = document.querySelector('#project-index');
+const nameInput = document.querySelector('#name');
+const addProject = document.querySelector('.add-project');
+const project = document.querySelector('#projects');
 
 class Project {
-  showProjectsList(projects) {
+  static showProjectsList(projects) {
     let output = '';
     projects.forEach((project, index) => {
       output += `
@@ -28,11 +29,11 @@ class Project {
     project.innerHTML = output;
   }
 
-  clearFields() {
+  static clearFields() {
     nameInput.value = '';
   }
 
-  fillForm(data) {
+  static fillForm(data) {
     nameInput.value = data.name;
     idInput.value = data.index;
 
@@ -40,12 +41,12 @@ class Project {
   }
 
   // Clear ID hidden value
-  clearIdInput() {
+  static clearIdInput() {
     idInput.value = '';
   }
 
   // Change the form state
-  changeFormState(type) {
+  static changeFormState(type) {
     if (type === 'edit') {
       addProject.textContent = 'Update';
       if (document.querySelector('.post-cancel') == null) {
