@@ -55,6 +55,7 @@ const deleteProject = (e) => {
       storeData(data);
       project.showProjectsList(data);
       showAlert('Deleted Project', 'alert alert-danger');
+      getDefault();
     }
   }
   e.preventDefault();
@@ -104,7 +105,7 @@ const addNewTodo = (e) => {
     }
     storeData(data);
     todo.clearFields();
-    todo.showTodo(getStoreData());
+    todo.showTodo(data);
   }
 };
 
