@@ -1,14 +1,18 @@
-const title = document.querySelector('#title');
-const description = document.querySelector('#description');
-const dueDate = document.querySelector('#dueDate');
-const priority = document.querySelector('#priority');
-const idInput = document.querySelector('#todoId');
-const projectsDropDown = document.querySelector('.project-select');
-const todos = document.querySelector('.todos');
-const todoSubmit = document.querySelector('.add-todo');
-
 class Todo {
-  static renderProjectDropDown(projects) {
+  constructor() {
+    this.title = document.querySelector('#title');
+    this.description = document.querySelector('#description');
+    this.dueDate = document.querySelector('#dueDate');
+    this.priority = document.querySelector('#priority');
+    this.project = document.querySelector('#project');
+    this.status = false;
+    this.idInput = document.querySelector('#todoId');
+    this.projectsDropDown = document.querySelector('.project-select');
+    this.todos = document.querySelector('.todos');
+    this.todoSubmit = document.querySelector('.add-todo');
+  }
+
+  renderProjectDropDown(projects) {
     let output = '';
     projects.forEach((project, index) => {
       output += `
@@ -16,12 +20,12 @@ class Todo {
       `;
     });
 
-    projectsDropDown.innerHTML = output;
+    this.projectsDropDown.innerHTML = output;
 
     this.showTodo(projects);
   }
 
-  static showTodo(projects) {
+  showTodo(projects) {
     let output = '';
     projects.forEach((project, projectIndex) => {
       if (project.todos) {
@@ -83,40 +87,40 @@ class Todo {
         });
       }
     });
-    todos.innerHTML = output;
+    this.todos.innerHTML = output;
   }
 
-  static clearFields() {
-    title.value = '';
-    description.value = '';
-    dueDate.value = '';
+  clearFields() {
+    this.title.value = '';
+    this.description.value = '';
+    this.dueDate.value = '';
   }
 
-  static fillForm(data) {
-    title.value = data.title;
-    description.value = data.description;
-    dueDate.value = data.dueDate;
-    priority.value = data.priority;
-    projectsDropDown.value = data.projectIndex;
-    projectsDropDown.disabled = true;
-    idInput.value = data.todoIndex;
+  fillForm(data) {
+    this.title.value = data.title;
+    this.description.value = data.description;
+    this.dueDate.value = data.dueDate;
+    this.priority.value = data.priority;
+    this.projectsDropDown.value = data.projectIndex;
+    this.projectsDropDown.disabled = true;
+    this.idInput.value = data.todoIndex;
 
     this.changeToDoFormState('edit');
   }
 
-  static changeToDoFormState(type) {
+  changeToDoFormState(type) {
     if (type === 'edit') {
-      todoSubmit.textContent = 'Update';
-      todoSubmit.className = 'add-todo u-full-width btn btn-warning';
+      this.todoSubmit.textContent = 'Update';
+      this.todoSubmit.className = 'add-todo u-full-width btn btn-warning';
     } else {
-      todoSubmit.textContent = 'Add';
-      todoSubmit.className = 'add-todo u-full-width btn btn-primary';
+      this.todoSubmit.textContent = 'Add';
+      this.todoSubmit.className = 'add-todo u-full-width btn btn-primary';
       this.clearIdInput();
     }
   }
 
-  static clearIdInput() {
-    idInput.value = '';
+  clearIdInput() {
+    this.idInput.value = '';
     this.clearFields();
   }
 }

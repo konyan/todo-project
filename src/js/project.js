@@ -1,10 +1,13 @@
-const idInput = document.querySelector('#project-index');
-const nameInput = document.querySelector('#name');
-const addProject = document.querySelector('.add-project');
-const project = document.querySelector('#projects');
-
 class Project {
-  static showProjectsList(projects) {
+  constructor() {
+    this.idInput = document.querySelector('#project-index');
+    this.nameInput = document.querySelector('#name');
+    this.addProject = document.querySelector('.add-project');
+    this.project = document.querySelector('#projects');
+    this.forState = 'add';
+  }
+
+  showProjectsList(projects) {
     let output = '';
     projects.forEach((project, index) => {
       output += `
@@ -26,29 +29,29 @@ class Project {
       `;
     });
 
-    project.innerHTML = output;
+    this.project.innerHTML = output;
   }
 
-  static clearFields() {
-    nameInput.value = '';
+  clearFields() {
+    this.nameInput.value = '';
   }
 
-  static fillForm(data) {
-    nameInput.value = data.name;
-    idInput.value = data.index;
+  fillForm(data) {
+    this.nameInput.value = data.name;
+    this.idInput.value = data.index;
 
-    this.changeFormState('edit');
+    this.changeFormState('edit-project');
   }
 
   // Clear ID hidden value
-  static clearIdInput() {
-    idInput.value = '';
+  clearIdInput() {
+    this.idInput.value = '';
   }
 
   // Change the form state
-  static changeFormState(type) {
-    if (type === 'edit') {
-      addProject.textContent = 'Update';
+  changeFormState(type) {
+    if (type === 'edit-project') {
+      this.addProject.textContent = 'Update';
       if (document.querySelector('.post-cancel') == null) {
         // Create cancel button
         const button = document.createElement('button');
@@ -63,7 +66,7 @@ class Project {
         cardForm.insertBefore(button, formEnd);
       }
     } else {
-      addProject.textContent = 'Add';
+      this.addProject.textContent = 'Add';
       if (document.querySelector('.post-cancel')) {
         document.querySelector('.post-cancel').remove();
       }
