@@ -74,7 +74,7 @@ const addNewTodo = (e) => {
   const title = document.querySelector('#title').value;
   const description = document.querySelector('#description').value;
   const dueDate = document.querySelector('#dueDate').value;
-  const priority = document.querySelector('#priority').value;
+  const priority = parseInt(document.querySelector('#priority').value, 10);
   const projectIndex = document.querySelector('#project').value;
   const status = false;
   const todoIndex = document.querySelector('#todoId').value;
@@ -92,7 +92,7 @@ const addNewTodo = (e) => {
   } else {
     const data = getStoreData();
     if (!todoIndex) {
-      if (Object.prototype.hasOwnProperty.call(!data[projectIndex], 'todos')) {
+      if (!Object.prototype.hasOwnProperty.call(data[projectIndex], 'todos')) {
         data[projectIndex].todos = [body];
       } else {
         data[projectIndex].todos.push(body);
