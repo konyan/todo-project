@@ -86,11 +86,14 @@ const addNewTodo = (e) => {
     priority,
     status,
   };
+  console.log('I AM HER EEEE', body, todoIndex);
 
-  if (title === '' || description !== '' || dueDate === '' || priority === '') {
+  if (title === '' || description === '' || dueDate === '' || priority === '') {
     showAlert('Please fill in all fields', 'alert alert-danger');
   } else {
     const data = getStoreData();
+
+
     if (!todoIndex) {
       if (!Object.prototype.hasOwnProperty.call(data[projectIndex], 'todos')) {
         data[projectIndex].todos = [body];
@@ -99,6 +102,7 @@ const addNewTodo = (e) => {
       }
       showAlert('TODO Added', 'alert alert-success');
     } else {
+      console.log('I AM HERE', body, todoIndex);
       data[projectIndex].todos[todoIndex] = body;
       showAlert('TODO Updated', 'alert alert-success');
       todo.changeToDoFormState('add');

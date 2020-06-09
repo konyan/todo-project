@@ -1,15 +1,22 @@
+import {
+  title, description, dueDate, priority, projectTodo,
+  todoIdInput, projectsDropDown, todos, todoSubmit,
+} from './dom';
+
+
 class Todo {
-  constructor() {
-    this.title = document.querySelector('#title');
-    this.description = document.querySelector('#description');
-    this.dueDate = document.querySelector('#dueDate');
-    this.priority = document.querySelector('#priority');
-    this.project = document.querySelector('#project');
+  constructor(title, description, dueDate, priority, project,
+    idInput, projectsDropDown, todos, todoSubmit) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
+    this.project = project;
     this.status = false;
-    this.idInput = document.querySelector('#todoId');
-    this.projectsDropDown = document.querySelector('.project-select');
-    this.todos = document.querySelector('.todos');
-    this.todoSubmit = document.querySelector('.add-todo');
+    this.idInput = idInput;
+    this.projectsDropDown = projectsDropDown;
+    this.todos = todos;
+    this.todoSubmit = todoSubmit;
   }
 
   renderProjectDropDown(projects) {
@@ -114,6 +121,7 @@ class Todo {
       this.todoSubmit.className = 'add-todo u-full-width btn btn-warning';
     } else {
       this.todoSubmit.textContent = 'Add';
+      this.projectsDropDown.disabled = false;
       this.todoSubmit.className = 'add-todo u-full-width btn btn-primary';
       this.clearIdInput();
     }
@@ -125,4 +133,5 @@ class Todo {
   }
 }
 
-export default new Todo();
+export default new Todo(title, description, dueDate,
+  priority, projectTodo, todoIdInput, projectsDropDown, todos, todoSubmit);
