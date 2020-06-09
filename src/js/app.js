@@ -87,7 +87,7 @@ const addNewTodo = (e) => {
     status,
   };
 
-  if (title === '' || description === '' || dueDate === '' || priority === '') {
+  if (title === '' || description !== '' || dueDate === '' || priority === '') {
     showAlert('Please fill in all fields', 'alert alert-danger');
   } else {
     const data = getStoreData();

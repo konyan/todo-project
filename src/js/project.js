@@ -1,10 +1,13 @@
+import {
+  idInput, nameInput, addProject, project,
+} from './dom';
+
 class Project {
-  constructor() {
-    this.idInput = document.querySelector('#project-index');
-    this.nameInput = document.querySelector('#name');
-    this.addProject = document.querySelector('.add-project');
-    this.project = document.querySelector('#projects');
-    this.forState = 'add';
+  constructor(idInput, nameInput, addProject, project) {
+    this.idInput = idInput;
+    this.nameInput = nameInput;
+    this.addProject = addProject;
+    this.project = project;
   }
 
   showProjectsList(projects) {
@@ -77,4 +80,4 @@ class Project {
   }
 }
 
-export default new Project();
+export default new Project(idInput, nameInput, addProject, project);
